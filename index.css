@@ -1,21 +1,158 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap'); */
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    /* font-family: 'Montserrat', sans-serif; */
-    font-family: 'Poppins', sans-serif;
+  /* font-family: 'Montserrat', sans-serif; */
+  font-family: "Poppins", sans-serif;
 }
 
 .container {
-    width: 100%;
-    height: 100vh;
-    /* try out other backgrounds, e.g fetching from an Api */
-    background-color: #333; 
+  width: 100%;
+  height: 100vh;
+  /* try out other backgrounds, e.g fetching from an Api */
+  background-color: #333;
+  /* use the flex for larger screens */
+  /* display: flex;
+    align-items: center;
+    justify-content: center; */
+}
+
+.music-player {
+  width: 100%;
+  padding: 10px 20px;
+  text-align: center;
+  background-color: #ffe0e5;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.nav-item {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 50%;
+  color: #f53192;
+  background-color: #fff;
+  box-shadow: 0 5px 10px rgba(255, 26, 26, 0.22);
+}
+
+.music-art {
+  width: 100%;
+  border-radius: 50%;
+  border: 8px solid #fff;
+  box-shadow: 0v10px 60px rgba(255, 26, 26, 0.22);
+}
+
+@media (min-width: 600px) {
+    .container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.music-player {
+  width: 500px;
+  padding: 25px 35px;
+}
+
+  .music-art {
+    width: 220px;
+    height: 220px;
+  }
+
+  /* work on the width of the controls on large screens */
+  audio {
+    /* width: 100%; */
+}
+
+.controls div {
+    font-size: 32px;
+    font-weight: 400;
+    width: 80px;
+    height: 80px;
+}
+
+.controls .play-pause-icon {
+    border-radius: 50%;
+}
+}
+
+.song-title {
+  font-size: 20px;
+  font-weight: 400;
+  color: #333;
+  margin-top: 20px;
+}
+
+.artiste-name {
+  font-size: 14px;
+  color: #333;
+}
+
+/* controls 
+    -work on the controls
+*/
+audio {
+  width: 100%;
+  /* display: none; */
+}
+
+.progress {
+    /* lookup new ways to tweak the range input, "-webkit-appearance seems to be deprecated" */
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  background-color: #f53192;
+  border-radius: 4px;
+  margin: 40px 0;
+  cursor: pointer;
+}
+
+.progress::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 8px solid #fff;
+    background-color: #f53192;
+    box-shadow: 0 5px 5px rgba(255, 26, 26, 0.22);
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.controls div {
+    /* font-size: 32px; */
+    /* font-weight: 400; */
+    /* width: 80px; */
+    /* height: 80px; */
+    margin: 20px;
+    color: #f53192;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.controls .play-pause-icon {
+    border-radius: 50%;
+    background-color: #f53192;
+    color: #fff;
+    box-shadow: 0 10px 20px rgba(255, 26, 26, 0.22);
 }
