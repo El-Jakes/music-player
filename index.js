@@ -1,3 +1,6 @@
+import data from './data.js'
+console.log(data)
+
 const progress = document.getElementById("progress");
 const playPauseIcon = document.getElementById("play-pause-icon");
 const controlIcon = document.getElementById("control-icon");
@@ -8,14 +11,7 @@ song.onloadedmetadata = function () {
   progress.value = song.currentTime;
 };
 
-// song.addEventListener("onloadedmetadata", function () {
-//   progress.max = song.duration;
-//   progress.value = song.currentTime;
-// });
-
-playPauseIcon.addEventListener("click", handleClick);
-
-function handleClick() {
+playPauseIcon.addEventListener("click", function() {
   if (controlIcon.classList.contains("fa-pause")) {
     song.pause();
     controlIcon.classList.remove("fa-pause");
@@ -25,13 +21,13 @@ function handleClick() {
     controlIcon.classList.add("fa-pause");
     controlIcon.classList.remove("fa-play");
   }
+});
 
-  if (song.play()) {
-    setInterval(() => {
-      progress.value = song.currentTime;
-    }, 1000);
-  }
-}
+// if (song.play()) {
+//   setInterval(() => {
+//     progress.value = song.currentTime;
+//   }, 500);
+// }
 
 
 progress.onchange = function() {
@@ -40,11 +36,3 @@ progress.onchange = function() {
     controlIcon.classList.add("fa-pause");
     controlIcon.classList.remove("fa-play");
 }
-
-
-// progress.addEventListener("onChange", function () {
-//   song.play();
-//   song.currentTime = progress.value;
-//   controlIcon.classList.add("fa-pause");
-//   controlIcon.classList.remove("fa-play");
-// });

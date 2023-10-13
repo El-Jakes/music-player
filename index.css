@@ -34,10 +34,12 @@ body {
 nav {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
+  margin-bottom: 100px;
 }
 
 .nav-item {
+    display: none;
   width: 40px;
   height: 40px;
   line-height: 40px;
