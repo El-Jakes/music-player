@@ -4,56 +4,55 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- FONTAWESOME CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="index.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="index.css" />
     <title>Music Player</title>
   </head>
   <body>
     <main class="container">
-        <section class="music-player">
-            <!-- navigation -->
-            <nav>
-                <div class="nav-item">
-                    <i class="fa-solid fa-angle-left"></i>
-                </div>
-                <div class="nav-item">
-                    <i class="fa-solid fa-bars"></i>
-                </div>
-            </nav>
-            <!-- music art -->
-            <div id="test-render"></div>
-            <img class="music-art" src="media/art-early-momo.jpg" alt="music art for a song by vector titled Early Momo">
-            <h1 class="song-title">Early Momo</h1>
-            <!-- <marquee behavior="" direction="">
-                <p class="artiste-name">Vector ft GoodGirl LA</p>
-            </marquee> -->
-            <p class="artiste-name">Vector ft GoodGirl LA</p>
-            <!-- audio songs -->
-            <audio id="song">
-                <source src="media/early-momo.mp3" type="audio/mpeg">
-            </audio>
-            <!-- play progress -->
-            <input type="range" value="0" class="progress" id="progress">
+      <section class="music-player">
+        <!-- navigation -->
+        <nav>
+          <div class="nav-item">
+            <i class="fa-solid fa-angle-left"></i>
+          </div>
+          <div class="nav-item">
+            <i class="fa-solid fa-bars"></i>
+          </div>
+        </nav>
+        <!-- music art -->
+        <div id="music-art"></div>
+        <h1 class="song-title" id="song-title"></h1>
+        <p class="artiste-name" id="artiste"></p>
+        <!-- audio songs -->
+        <audio id="song"></audio>
+        <!-- play progress bar -->
+        <input type="range" value="0" class="progress" id="progress" />
 
-            <div class="controls">
-                <!-- <div class="shuffle-icon">
+        <div class="controls">
+          <!-- <div class="shuffle-icon">
                     <i class="fa-solid fa-shuffle"></i>
                 </div> -->
-                <div class="previous-icon">
-                    <i class="fa-solid fa-backward-step"></i>
-                </div>
-                <div class="play-pause-icon" id="play-pause-icon">
-                    <i class="fa-solid fa-play fa-pause" id="control-icon"></i>
-                    <!-- <i class="fa-solid fa-pause"></i> -->
-                </div>
-                <div class="next-icon">
-                    <i class="fa-solid fa-forward-step"></i>
-                </div>
-                <!-- <div class="repeat-icon">
+          <div class="previous-icon" id="previous-icon">
+            <i class="fa-solid fa-backward-step"></i>
+          </div>
+          <div class="play-pause-icon" id="play-pause-icon">
+            <i class="fa-solid fa-play fa-pause" id="control-icon"></i>
+          </div>
+          <div class="next-icon" id="next-icon">
+            <i class="fa-solid fa-forward-step"></i>
+          </div>
+          <!-- <div class="repeat-icon">
                     <i class="fa-solid fa-repeat"></i>
                 </div> -->
-            </div>
-        </section>
+        </div>
+      </section>
     </main>
 
     <script type="module" src="index.js"></script>
