@@ -21,7 +21,7 @@ const data = [
     altText: "music art for a song by Jay-Z titled Empire State of Mind",
     songTitle: "Empire State of Mind",
     artiste: "Jay-Z ft Alicia Keys",
-    song: "media/early-momo.mp3",
+    song: "media/empire-state-of-mind.mp3",
   },
   {
     id: 4,

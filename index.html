@@ -16,16 +16,9 @@
   </head>
   <body>
     <main class="container">
-      <section class="music-player">
-        <!-- navigation -->
-        <nav>
-          <div class="nav-item">
-            <i class="fa-solid fa-angle-left"></i>
-          </div>
-          <div class="nav-item">
-            <i class="fa-solid fa-bars"></i>
-          </div>
-        </nav>
+      <section class="music-player" id="music-player">
+        <div class="logo-wrapper"><img src="media/logo.png" alt="" class="logo"></div>
+
         <!-- music art -->
         <div id="music-art"></div>
         <h1 class="song-title" id="song-title"></h1>
@@ -33,7 +26,9 @@
         <!-- audio songs -->
         <audio id="song"></audio>
         <!-- play progress bar -->
-        <input type="range" value="0" class="progress" id="progress" />
+        <div class="progress-wrapper" id="progress-wrapper">
+        <div class="progress" id="progress"></div>
+        </div>
 
         <div class="controls">
           <!-- <div class="shuffle-icon">

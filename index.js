@@ -1,58 +1,105 @@
 import data from "./data.js";
 
+const musicPlayer = document.getElementById("music-player");
+const playPauseIcon = document.getElementById("play-pause-icon");
+const previousIcon = document.getElementById("previous-icon");
+const nextIcon = document.getElementById("next-icon");
+
+const song = document.getElementById("song");
+const progress = document.getElementById("progress");
+const progressWrapper = document.getElementById("progress-wrapper");
+
 const musicArt = document.getElementById("music-art");
 const songTitle = document.getElementById("song-title");
 const artiste = document.getElementById("artiste");
 
-const progress = document.getElementById("progress");
-const playPauseIcon = document.getElementById("play-pause-icon");
 const controlIcon = document.getElementById("control-icon");
-const song = document.getElementById("song");
 
-const previousIcon = document.getElementById("previous-icon");
-const nextIcon = document.getElementById("next-icon");
+let songIndex = 0;
 
-data.map((music) => {
+loadSong(data[songIndex]);
+
+// load song from playlist
+function loadSong(music) {
   musicArt.innerHTML = `<img class="music-art" src="${music.albumCover}" alt="${music.altText}">`;
   songTitle.textContent = `${music.songTitle}`;
   artiste.textContent = `${music.artiste}`;
-  song.innerHTML = `<source src="${music.song}" type="audio/mpeg">`;
-});
+  song.src = `${music.song}`
+}
 
-song.onloadedmetadata = function () {
-  progress.max = song.duration;
-  progress.value = song.currentTime;
-};
+// play & pause song functions
 
+function play() {
+  controlIcon.classList.add("fa-pause");
+  controlIcon.classList.remove("fa-play");
+  musicPlayer.classList.add("play");
+  song.play();
+}
+
+function pause() {
+  controlIcon.classList.remove("fa-pause");
+  controlIcon.classList.add("fa-play");
+  musicPlayer.classList.remove("play");
+  song.pause();
+}
+
+function progressUpdate(e) {
+  const { duration, currentTime } = e.srcElement;
+  const progressBar = (currentTime / duration) * 100;
+  console.log(progressBar)
+  progress.style.width = `${progressBar}%`;
+
+}
+
+// next & previous songs functions
+
+function nextSong() {
+  songIndex++;
+
+  if (songIndex > data.length - 1) {
+    songIndex = 0;
+  }
+
+  loadSong(data[songIndex]);
+  play();
+}
+
+function previousSong() {
+  songIndex--;
+
+  if (songIndex < 0) {
+    songIndex = data.length - 1;
+  }
+
+  loadSong(data[songIndex]);
+  play();
+}
+
+// play song event
 playPauseIcon.addEventListener("click", function () {
   if (controlIcon.classList.contains("fa-pause")) {
-    song.pause();
-    controlIcon.classList.remove("fa-pause");
-    controlIcon.classList.add("fa-play");
+    pause();
   } else {
-    song.play();
-    controlIcon.classList.add("fa-pause");
-    controlIcon.classList.remove("fa-play");
+    play();
   }
 });
 
-if (song.play()) {
-  setInterval(() => {
-    progress.value = song.currentTime;
-  }, 500);
-}
+// next and previous events
+nextIcon.addEventListener("click", nextSong);
+previousIcon.addEventListener("click", previousSong);
 
-progress.onchange = function () {
-  song.play();
-  song.currentTime = progress.value;
-  controlIcon.classList.add("fa-pause");
-  controlIcon.classList.remove("fa-play");
-};
+// lookup why this event is not firing
+song.addEventListener("timeUpdate", progressUpdate);
 
-nextIcon.addEventListener("click", function () {
-  console.log("play next song");
-});
+progressWrapper.addEventListener('click', function(e){
+  const width = this.clientWidth
+  const clickX = e.offsetX
+  const duration = song.duration
 
-previousIcon.addEventListener("click", function () {
-  console.log("play previous song");
-});
+  song.currentTime = (clickX / width) * duration
+})
+
+song.addEventListener('ended', nextSong)
+
+
+
