@@ -4,6 +4,7 @@ const musicPlayer = document.getElementById("music-player");
 const playPauseIcon = document.getElementById("play-pause-icon");
 const previousIcon = document.getElementById("previous-icon");
 const nextIcon = document.getElementById("next-icon");
+const songList = document.getElementById("song-list");
 
 const song = document.getElementById("song");
 const progress = document.getElementById("progress");
@@ -15,6 +16,7 @@ const artiste = document.getElementById("artiste");
 
 const controlIcon = document.getElementById("control-icon");
 
+
 let songIndex = 0;
 
 loadSong(data[songIndex]);
@@ -24,7 +26,7 @@ function loadSong(music) {
   musicArt.innerHTML = `<img class="music-art" src="${music.albumCover}" alt="${music.altText}">`;
   songTitle.textContent = `${music.songTitle}`;
   artiste.textContent = `${music.artiste}`;
-  song.src = `${music.song}`
+  song.src = `${music.song}`;
 }
 
 // play & pause song functions
@@ -33,6 +35,7 @@ function play() {
   controlIcon.classList.add("fa-pause");
   controlIcon.classList.remove("fa-play");
   musicPlayer.classList.add("play");
+
   song.play();
 }
 
@@ -46,9 +49,8 @@ function pause() {
 function progressUpdate(e) {
   const { duration, currentTime } = e.srcElement;
   const progressBar = (currentTime / duration) * 100;
-  console.log(progressBar)
+  console.log(progressBar);
   progress.style.width = `${progressBar}%`;
-
 }
 
 // next & previous songs functions
@@ -91,15 +93,22 @@ previousIcon.addEventListener("click", previousSong);
 // lookup why this event is not firing
 song.addEventListener("timeUpdate", progressUpdate);
 
-progressWrapper.addEventListener('click', function(e){
-  const width = this.clientWidth
-  const clickX = e.offsetX
-  const duration = song.duration
+progressWrapper.addEventListener("click", function (e) {
+  const width = this.clientWidth;
+  const clickX = e.offsetX;
+  const duration = song.duration;
 
-  song.currentTime = (clickX / width) * duration
-})
+  song.currentTime = (clickX / width) * duration;
+});
 
-song.addEventListener('ended', nextSong)
+song.addEventListener("ended", nextSong);
 
-
-
+document.addEventListener("keypress", function (e) {
+  console.log(e);
+  e.preventDefault();
+  if (e.keyCode === 110 && controlIcon.classList.contains("fa-pause")) {
+    pause();
+  } else {
+    play();
+  }
+});

@@ -120,6 +120,11 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
+
+.song-list span {
+  text-transform: uppercase;
+}
+
 /* media query */
 @media (min-width: 600px) {
   .container {
