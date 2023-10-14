@@ -19,7 +19,8 @@ body {
 
 .music-player {
   width: 100%;
-  padding: 10px 20px;
+  /* height: 100vh; */
+  padding: 15px 20px 50px;
   text-align: center;
   background-color: #202027;
 }
