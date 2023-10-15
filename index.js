@@ -1,35 +1,39 @@
 import data from "./data.js";
 
 const musicPlayer = document.getElementById("music-player");
-const playPauseIcon = document.getElementById("play-pause-icon");
+const musicArt = document.getElementById("music-art");
+const songTitle = document.getElementById("song-title");
+const artiste = document.getElementById("artiste");
 const previousIcon = document.getElementById("previous-icon");
+const playPauseIcon = document.getElementById("play-pause-icon");
+const controlIcon = document.getElementById("control-icon");
 const nextIcon = document.getElementById("next-icon");
-const songList = document.getElementById("song-list");
+// const songList = document.getElementById("song-list");
 
 const song = document.getElementById("song");
 const progress = document.getElementById("progress");
 const progressWrapper = document.getElementById("progress-wrapper");
 
-const musicArt = document.getElementById("music-art");
-const songTitle = document.getElementById("song-title");
-const artiste = document.getElementById("artiste");
-
-const controlIcon = document.getElementById("control-icon");
-
 let songIndex = 0;
 
-loadSong(data[songIndex]);
+// song progress
+function updateSongProgress(e) {
+  const { duration, currentTime } = e.srcElement;
+  const progressBar = (currentTime / duration) * 100;
+  progress.style.width = `${progressBar}%`;
+}
 
-// load song from playlist
-function loadSong(music) {
+// fetch song from playlist
+function fetchSong(music) {
   musicArt.innerHTML = `<img class="music-art" src="${music.albumCover}" alt="${music.altText}">`;
   songTitle.textContent = `${music.songTitle}`;
   artiste.textContent = `${music.artiste}`;
   song.src = `${music.song}`;
 }
 
-// play & pause song functions
+fetchSong(data[songIndex]);
 
+// play & pause song functions
 function play() {
   controlIcon.classList.add("fa-pause");
   controlIcon.classList.remove("fa-play");
@@ -42,18 +46,11 @@ function pause() {
   controlIcon.classList.remove("fa-pause");
   controlIcon.classList.add("fa-play");
   musicPlayer.classList.remove("play");
+
   song.pause();
 }
 
-function progressUpdate(e) {
-  const { duration, currentTime } = e.srcElement;
-  const progressBar = (currentTime / duration) * 100;
-  console.log(progressBar);
-  progress.style.width = `${progressBar}%`;
-}
-
-// next & previous songs functions
-
+// stop, next & previous songs functions
 function nextSong() {
   songIndex++;
 
@@ -61,7 +58,7 @@ function nextSong() {
     songIndex = 0;
   }
 
-  loadSong(data[songIndex]);
+  fetchSong(data[songIndex]);
   play();
 }
 
@@ -72,7 +69,7 @@ function previousSong() {
     songIndex = data.length - 1;
   }
 
-  loadSong(data[songIndex]);
+  fetchSong(data[songIndex]);
   play();
 }
 
@@ -81,7 +78,7 @@ function stopSong() {
   song.currentTime = 0;
 }
 
-// play song event
+// play & pause event
 playPauseIcon.addEventListener("click", function () {
   if (controlIcon.classList.contains("fa-play")) {
     play();
@@ -90,19 +87,21 @@ playPauseIcon.addEventListener("click", function () {
   }
 });
 
+// keyboard events
 document.addEventListener("keydown", function (e) {
   e.preventDefault();
   console.log(e);
-  if (controlIcon.classList.contains("fa-play") && e.keyCode === 32) {
+  if (controlIcon.classList.contains("fa-play") && e.code === "Space") {
     play();
-  } else if (e.keyCode === 78) {
+  } else if (e.code === "KeyN" || e.code === "Period") {
     nextSong();
-  } else if (e.keyCode === 80) {
+  } else if (e.code === "KeyP" || e.code === "Comma") {
     previousSong();
-  } else if (e.keyCode === 83) {
+  } else if (e.code === "KeyS") {
     stopSong();
   } else {
-    pause();
+    // fix the issue with other keys pausing the song
+    // pause();
   }
 });
 
@@ -110,25 +109,16 @@ document.addEventListener("keydown", function (e) {
 nextIcon.addEventListener("click", nextSong);
 previousIcon.addEventListener("click", previousSong);
 
-// lookup why this event is not firing
-song.addEventListener("timeUpdate", progressUpdate);
+// progress bar event
+song.addEventListener("timeupdate", updateSongProgress);
 
 progressWrapper.addEventListener("click", function (e) {
-  const width = this.clientWidth;
-  const clickX = e.offsetX;
-  const duration = song.duration;
+  const progressWidth = progressWrapper.clientWidth
+  const clickedX = e.offsetX;
+  const songDuration = song.duration;
 
-  song.currentTime = (clickX / width) * duration;
+  song.currentTime = (clickedX / progressWidth) * songDuration;
 });
 
+// song end event
 song.addEventListener("ended", nextSong);
-
-// document.addEventListener("keypress", function (e) {
-//   console.log(e);
-//   e.preventDefault();
-//   if (e.keyCode === 110 && controlIcon.classList.contains("fa-pause")) {
-//     pause();
-//   } else {
-//     play();
-//   }
-// });
