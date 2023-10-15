@@ -79,10 +79,10 @@ function previousSong() {
 
 // play song event
 playPauseIcon.addEventListener("click", function () {
-  if (controlIcon.classList.contains("fa-pause")) {
-    pause();
-  } else {
+  if (controlIcon.classList.contains("fa-play")) {
     play();
+  } else {
+    pause();
   }
 });
 
