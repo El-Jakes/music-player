@@ -13,12 +13,38 @@ const nextIcon = document.getElementById("next-icon");
 const song = document.getElementById("song");
 const progress = document.getElementById("progress");
 const progressWrapper = document.getElementById("progress-wrapper");
+// const songDuration = song.duration;
+// console.log(songDuration);
 
 let songIndex = 0;
 
+song.addEventListener('loadeddata', function(){
+  const songCurrentTime = document.getElementById('current')
+  const songTotalTime = document.getElementById('end')
+
+  const songTotal = song.duration;
+  const totalMinutes = Math.floor(songTotal / 60)
+  let totalSeconds = Math.floor(songTotal % 60)
+  if(totalSeconds < 10) {
+    totalSeconds = `0${totalSeconds}`
+  }
+  
+  songTotalTime.textContent = `${totalMinutes}:${totalSeconds}`
+
+  const songCurrentPlayTime = song.currentTime;
+  const currentMinutes = Math.floor(songCurrentPlayTime / 60)
+  let currentSeconds = Math.floor(songCurrentPlayTime % 60)
+  if(currentSeconds < 10) {
+    currentSeconds = `0${currentSeconds}`
+  }
+  
+  songCurrentTime.textContent = `${currentMinutes}:${currentSeconds}`
+})
+
 // song progress
 function updateSongProgress(e) {
-  const { duration, currentTime } = e.srcElement;
+  const currentTime = e.target.currentTime;
+  const duration = e.target.duration;
   const progressBar = (currentTime / duration) * 100;
   progress.style.width = `${progressBar}%`;
 }
@@ -109,7 +135,7 @@ document.addEventListener("keydown", function (e) {
 nextIcon.addEventListener("click", nextSong);
 previousIcon.addEventListener("click", previousSong);
 
-// progress bar event
+// progress bar event 
 song.addEventListener("timeupdate", updateSongProgress);
 
 progressWrapper.addEventListener("click", function (e) {
