@@ -16,7 +16,6 @@ const artiste = document.getElementById("artiste");
 
 const controlIcon = document.getElementById("control-icon");
 
-
 let songIndex = 0;
 
 loadSong(data[songIndex]);
@@ -86,6 +85,22 @@ playPauseIcon.addEventListener("click", function () {
   }
 });
 
+document.addEventListener("keydown", function (e) {
+  e.preventDefault();
+  console.log(e);
+  if (controlIcon.classList.contains("fa-play") && e.keyCode === 32) {
+    play();
+  } else if (e.keyCode === 78) {
+    nextSong();
+  } else if (e.keyCode === 80) {
+    previousSong();
+  } else if (e.keyCode === 83) {
+    // play();
+  } else {
+    pause();
+  }
+});
+
 // next and previous events
 nextIcon.addEventListener("click", nextSong);
 previousIcon.addEventListener("click", previousSong);
@@ -103,12 +118,12 @@ progressWrapper.addEventListener("click", function (e) {
 
 song.addEventListener("ended", nextSong);
 
-document.addEventListener("keypress", function (e) {
-  console.log(e);
-  e.preventDefault();
-  if (e.keyCode === 110 && controlIcon.classList.contains("fa-pause")) {
-    pause();
-  } else {
-    play();
-  }
-});
+// document.addEventListener("keypress", function (e) {
+//   console.log(e);
+//   e.preventDefault();
+//   if (e.keyCode === 110 && controlIcon.classList.contains("fa-pause")) {
+//     pause();
+//   } else {
+//     play();
+//   }
+// });
