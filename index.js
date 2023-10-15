@@ -76,6 +76,11 @@ function previousSong() {
   play();
 }
 
+function stopSong() {
+  pause();
+  song.currentTime = 0;
+}
+
 // play song event
 playPauseIcon.addEventListener("click", function () {
   if (controlIcon.classList.contains("fa-play")) {
@@ -95,7 +100,7 @@ document.addEventListener("keydown", function (e) {
   } else if (e.keyCode === 80) {
     previousSong();
   } else if (e.keyCode === 83) {
-    // play();
+    stopSong();
   } else {
     pause();
   }
