@@ -18,28 +18,10 @@ const progressWrapper = document.getElementById("progress-wrapper");
 
 let songIndex = 0;
 
-song.addEventListener('loadeddata', function(){
-  const songCurrentTime = document.getElementById('current')
-  const songTotalTime = document.getElementById('end')
+// fix this
+// currentTime / duration * 100: apply it to update progress time reading
 
-  const songTotal = song.duration;
-  const totalMinutes = Math.floor(songTotal / 60)
-  let totalSeconds = Math.floor(songTotal % 60)
-  if(totalSeconds < 10) {
-    totalSeconds = `0${totalSeconds}`
-  }
-  
-  songTotalTime.textContent = `${totalMinutes}:${totalSeconds}`
-
-  const songCurrentPlayTime = song.currentTime;
-  const currentMinutes = Math.floor(songCurrentPlayTime / 60)
-  let currentSeconds = Math.floor(songCurrentPlayTime % 60)
-  if(currentSeconds < 10) {
-    currentSeconds = `0${currentSeconds}`
-  }
-  
-  songCurrentTime.textContent = `${currentMinutes}:${currentSeconds}`
-})
+song.addEventListener('loadeddata', timeUpdateReading)
 
 // song progress
 function updateSongProgress(e) {
@@ -47,6 +29,31 @@ function updateSongProgress(e) {
   const duration = e.target.duration;
   const progressBar = (currentTime / duration) * 100;
   progress.style.width = `${progressBar}%`;
+}
+
+// time update function
+function timeUpdateReading(){
+  // fix the bug here
+  const songCurrentTime = document.getElementById('current')
+  const songTotalTime = document.getElementById('end')
+
+  const songTotalDuration = song.duration;
+  const totalMinutes = Math.floor(songTotalDuration / 60)
+  let totalSeconds = Math.floor(songTotalDuration % 60)
+  if(totalSeconds < 10) {
+    totalSeconds = `0${totalSeconds}`
+  }
+  
+  songTotalTime.textContent = `${totalMinutes}:${totalSeconds}`
+
+  const songCurrentPlayTime = song.currentTime
+  const currentMinutes = (song.currentTime / 60)
+  let currentSeconds = (song.currentTime % 60) 
+  if(currentSeconds < 10) {
+    currentSeconds = `0${currentSeconds}`
+  }
+  
+  songCurrentTime.textContent = `${currentMinutes}:${currentSeconds}`
 }
 
 // fetch song from playlist
@@ -104,17 +111,8 @@ function stopSong() {
   song.currentTime = 0;
 }
 
-// play & pause event
-playPauseIcon.addEventListener("click", function () {
-  if (controlIcon.classList.contains("fa-play")) {
-    play();
-  } else {
-    pause();
-  }
-});
-
-// keyboard events
-document.addEventListener("keydown", function (e) {
+// keyboard functionality
+function onkeydown(e) {
   e.preventDefault();
   console.log(e);
   if (controlIcon.classList.contains("fa-play") && e.code === "Space") {
@@ -125,9 +123,22 @@ document.addEventListener("keydown", function (e) {
     previousSong();
   } else if (e.code === "KeyS") {
     stopSong();
-  } else {
+  } else if (!e.code === 'Space' || e.code === 'KeyN' || e.code === 'Period' || e.code === 'KeyP' || e.code === 'Comma' || e.code === KeyS) {
+    e.cancelBubble = true
+    e = null
+  }
+  else {
     // fix the issue with other keys pausing the song
-    // pause();
+    pause(); 
+  }
+}
+
+// play & pause event
+playPauseIcon.addEventListener("click", function () {
+  if (controlIcon.classList.contains("fa-play")) {
+    play();
+  } else {
+    pause();
   }
 });
 
@@ -148,3 +159,6 @@ progressWrapper.addEventListener("click", function (e) {
 
 // song end event
 song.addEventListener("ended", nextSong);
+
+// keyboard events
+document.addEventListener("keydown", onkeydown);
