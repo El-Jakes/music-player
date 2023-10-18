@@ -18,42 +18,41 @@ const progressWrapper = document.getElementById("progress-wrapper");
 
 let songIndex = 0;
 
-// fix this
-// currentTime / duration * 100: apply it to update progress time reading
-
-song.addEventListener('loadeddata', timeUpdateReading)
 
 // song progress
 function updateSongProgress(e) {
-  const currentTime = e.target.currentTime;
-  const duration = e.target.duration;
-  const progressBar = (currentTime / duration) * 100;
-  progress.style.width = `${progressBar}%`;
+    const currentTime = e.target.currentTime;
+    const duration = e.target.duration;
+    const progressBar = (currentTime / duration) * 100;
+    progress.style.width = `${progressBar}%`;
 }
 
+song.addEventListener('loadeddata', timeUpdateReading)
 // time update function
 function timeUpdateReading(){
+  // fix this
   // fix the bug here
-  const songCurrentTime = document.getElementById('current')
-  const songTotalTime = document.getElementById('end')
+  // currentTime / duration * 100: apply it to update progress time reading
+  const songCurrentTime = document.getElementById("current");
+  const songTotalTime = document.getElementById("end");
 
   const songTotalDuration = song.duration;
-  const totalMinutes = Math.floor(songTotalDuration / 60)
-  let totalSeconds = Math.floor(songTotalDuration % 60)
-  if(totalSeconds < 10) {
-    totalSeconds = `0${totalSeconds}`
+  const totalMinutes = Math.floor(songTotalDuration / 60);
+  let totalSeconds = Math.floor(songTotalDuration % 60);
+  if (totalSeconds < 10) {
+    totalSeconds = `0${totalSeconds}`;
   }
-  
-  songTotalTime.textContent = `${totalMinutes}:${totalSeconds}`
 
-  const songCurrentPlayTime = song.currentTime
-  const currentMinutes = (song.currentTime / 60)
-  let currentSeconds = (song.currentTime % 60) 
-  if(currentSeconds < 10) {
-    currentSeconds = `0${currentSeconds}`
+  songTotalTime.textContent = `${totalMinutes}:${totalSeconds}`;
+
+  const songCurrentPlayTime = song.currentTime;
+  const currentMinutes = song.currentTime / 60;
+  let currentSeconds = song.currentTime % 60;
+  if (currentSeconds < 10) {
+    currentSeconds = `0${currentSeconds}`;
   }
-  
-  songCurrentTime.textContent = `${currentMinutes}:${currentSeconds}`
+
+  songCurrentTime.textContent = `${currentMinutes}:${currentSeconds}`;
 }
 
 // fetch song from playlist
@@ -114,23 +113,18 @@ function stopSong() {
 // keyboard functionality
 function onkeydown(e) {
   e.preventDefault();
-  console.log(e);
+//   console.log(e);
   if (controlIcon.classList.contains("fa-play") && e.code === "Space") {
     play();
+  } else if (e.code === "Space") {
+    pause();
   } else if (e.code === "KeyN" || e.code === "Period") {
     nextSong();
   } else if (e.code === "KeyP" || e.code === "Comma") {
     previousSong();
   } else if (e.code === "KeyS") {
     stopSong();
-  } else if (!e.code === 'Space' || e.code === 'KeyN' || e.code === 'Period' || e.code === 'KeyP' || e.code === 'Comma' || e.code === KeyS) {
-    e.cancelBubble = true
-    e = null
-  }
-  else {
-    // fix the issue with other keys pausing the song
-    pause(); 
-  }
+  }    
 }
 
 // play & pause event
