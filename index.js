@@ -4,25 +4,12 @@ const musicPlayer = document.getElementById("music-player");
 const musicArt = document.getElementById("music-art");
 const songTitle = document.getElementById("song-title");
 const artiste = document.getElementById("artiste");
-<<<<<<< HEAD
-const musicPlayer = document.getElementById('music-player')
-
-const progress = document.getElementById("progress");
-=======
 const previousIcon = document.getElementById("previous-icon");
->>>>>>> 3db112bdc4e72c2f41f21ee4bdd52a1bceece016
 const playPauseIcon = document.getElementById("play-pause-icon");
 const controlIcon = document.getElementById("control-icon");
 const nextIcon = document.getElementById("next-icon");
 // const songList = document.getElementById("song-list");
 
-<<<<<<< HEAD
-// let musicIndex = 1
-
-// data[musicIndex]
-
-data.map((music) => {
-=======
 const song = document.getElementById("song");
 const progress = document.getElementById("progress");
 const progressWrapper = document.getElementById("progress-wrapper");
@@ -71,7 +58,6 @@ function timeUpdateReading(){
 
 // fetch song from playlist
 function fetchSong(music) {
->>>>>>> 3db112bdc4e72c2f41f21ee4bdd52a1bceece016
   musicArt.innerHTML = `<img class="music-art" src="${music.albumCover}" alt="${music.altText}">`;
   songTitle.textContent = `${music.songTitle}`;
   artiste.textContent = `${music.artiste}`;
@@ -149,26 +135,6 @@ function onkeydown(e) {
 
 // play & pause event
 playPauseIcon.addEventListener("click", function () {
-<<<<<<< HEAD
-  if (controlIcon.classList.contains("fa-pause")) {
-    song.pause();
-    controlIcon.classList.remove("fa-pause");
-    controlIcon.classList.add("fa-play");
-    musicPlayer.classList.remove('play')
-} else {
-    song.play();
-    controlIcon.classList.add("fa-pause");
-    controlIcon.classList.remove("fa-play");
-    musicPlayer.classList.add('play')
-  }
-});
-
-// if (song.play()) {
-//   setInterval(() => {
-//     progress.value = song.currentTime;
-//   }, 500);
-// }
-=======
   if (controlIcon.classList.contains("fa-play")) {
     play();
   } else {
@@ -179,7 +145,6 @@ playPauseIcon.addEventListener("click", function () {
 // next and previous events
 nextIcon.addEventListener("click", nextSong);
 previousIcon.addEventListener("click", previousSong);
->>>>>>> 3db112bdc4e72c2f41f21ee4bdd52a1bceece016
 
 // progress bar event 
 song.addEventListener("timeupdate", updateSongProgress);
@@ -192,20 +157,8 @@ progressWrapper.addEventListener("click", function (e) {
   song.currentTime = (clickedX / progressWidth) * songDuration;
 });
 
-<<<<<<< HEAD
-previousIcon.addEventListener("click", function () {
-     data--
-    for (let i = 0; i < array.length; i++) {
-        if (data[i] < 0) {
-            data[i] = data.length - 1
-        }
-        
-    }
-});
-=======
 // song end event
 song.addEventListener("ended", nextSong);
 
 // keyboard events
 document.addEventListener("keydown", onkeydown);
->>>>>>> 3db112bdc4e72c2f41f21ee4bdd52a1bceece016
