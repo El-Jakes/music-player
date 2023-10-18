@@ -8,41 +8,35 @@
 
 body {
   font-family: "Poppins", sans-serif;
+  /* height: 100vh; */
 }
 
 .container {
   width: 100%;
   height: 100vh;
-  /* try out other backgrounds, e.g fetching from an Api */
-  background-color: #333;
+  background-color: #2f303a;
 }
 
 .music-player {
   width: 100%;
-  padding: 10px 20px;
+  height: 100vh;
+  padding: 15px 20px 50px;
   text-align: center;
-  background-color: #ffe0e5;
+  background-color: #202027;
 }
 
-nav {
-  display: flex;
-  justify-content: space-between;
-  /* margin-bottom: 30px; */
-  margin-bottom: 100px;
+.logo-wrapper {
+  width: 150px;
+  margin: 15px 0;
 }
 
-.nav-item {
-  display: none;
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
-  border-radius: 50%;
-  color: #f53192;
-  background-color: #fff;
-  box-shadow: 0 5px 10px rgba(255, 26, 26, 0.22);
+.logo {
+  width: 100%;
+  object-fit: cover;
 }
 
 .music-art {
+  margin-top: 50px;
   width: 100%;
   border-radius: 50%;
   box-shadow: 0 10px 60px rgba(255, 26, 26, 0.22);
@@ -51,23 +45,96 @@ nav {
 }
 
 .music-player.play .music-art {
-    animation-play-state: running;    
+  animation-play-state: running;
 }
 
 @keyframes rotate {
-    from {
-        transform: rotate(0deg);
-    }
+  from {
+    transform: rotate(0deg);
+  }
 
-    to {
-        transform: rotate(360deg);
-    }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
+.song-title {
+  font-size: 20px;
+  font-weight: 400;
+  color: #e5e5e5;
+  margin-top: 20px;
+}
+
+.artiste-name {
+  font-size: 14px;
+  color: #555;
+}
+
+.progress-wrapper {
+  background-color: #2f303a;
+  height: 4px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 40px 0 0;
+  width: 100%;
+}
+
+.progress {
+  width: 0%;
+  height: 100%;
+  background-image: linear-gradient(45deg, #bc3a80, #1762a7);
+  border-radius: 5px;
+  transition: width 0.1s linear;
+}
+
+.timer {
+  display: flex;
+  justify-content: space-between;
+  color: #555;
+  font-size: 12px;
+  margin: 5px 0 25px;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* figure out why the width is not effected */
+.controls div {
+  width: 80px;
+  height: 80px;
+  margin: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.controls .play-pause-icon {
+  border-radius: 50%;
+  background-image: linear-gradient(45deg, #1762a7, #bc3a80);
+  color: #e5e5e5;
+  box-shadow: 1px 1px 0 rgba(255, 26, 26, 0.22);
+}
+
+.fa-backward-step,
+.fa-forward-step {
+  background-image: linear-gradient(45deg, #1762a7, #bc3a80);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+.song-list span {
+  text-transform: uppercase;
+}
+
+/* media query */
 @media (min-width: 600px) {
   .container {
-    /* width: 100%; */
-    /* height: 100vh; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -75,7 +142,13 @@ nav {
 
   .music-player {
     width: 500px;
+    height: auto;
     padding: 25px 35px;
+    border-radius: 15px;
+  }
+
+  .logo-wrapper {
+    margin: 0;
   }
 
   .music-art {
@@ -92,62 +165,4 @@ nav {
   .controls .play-pause-icon {
     /* border-radius: 50%; */
   }
-}
-
-.song-title {
-  font-size: 20px;
-  font-weight: 400;
-  color: #333;
-  margin-top: 20px;
-}
-
-.artiste-name {
-  font-size: 14px;
-  color: #333;
-}
-
-.progress {
-  /* lookup new ways to tweak the range input, "-webkit-appearance seems to be deprecated" */
-  -webkit-appearance: none;
-  width: 100%;
-  height: 6px;
-  background-color: #f53192;
-  border-radius: 4px;
-  margin: 40px 0;
-  cursor: pointer;
-}
-
-.progress::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: 8px solid #fff;
-  background-color: #f53192;
-  box-shadow: 0 5px 5px rgba(255, 26, 26, 0.22);
-}
-
-.controls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* figure out why the width is not effected */
-.controls div {
-  width: 80px;
-  height: 80px;
-  margin: 20px;
-  color: #f53192;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-.controls .play-pause-icon {
-  border-radius: 50%;
-  background-color: #f53192;
-  color: #fff;
-  box-shadow: 0 10px 20px rgba(255, 26, 26, 0.22);
 }
