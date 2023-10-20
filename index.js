@@ -18,11 +18,6 @@ const progressWrapper = document.getElementById("progress-wrapper");
 
 let songIndex = 0;
 
-// fix this
-// currentTime / duration * 100: apply it to update progress time reading
-
-song.addEventListener('loadeddata', timeUpdateReading)
-
 // song progress
 function updateSongProgress(e) {
   const currentTime = e.target.currentTime;
@@ -32,28 +27,30 @@ function updateSongProgress(e) {
 }
 
 // time update function
-function timeUpdateReading(){
+function timeUpdateReading() {
+  // fix this
+  // currentTime / duration * 100: apply it to update progress time reading
   // fix the bug here
-  const songCurrentTime = document.getElementById('current')
-  const songTotalTime = document.getElementById('end')
+  const songCurrentTime = document.getElementById("current");
+  const songTotalTime = document.getElementById("end");
 
   const songTotalDuration = song.duration;
-  const totalMinutes = Math.floor(songTotalDuration / 60)
-  let totalSeconds = Math.floor(songTotalDuration % 60)
-  if(totalSeconds < 10) {
-    totalSeconds = `0${totalSeconds}`
+  const totalMinutes = Math.floor(songTotalDuration / 60);
+  let totalSeconds = Math.floor(songTotalDuration % 60);
+  if (totalSeconds < 10) {
+    totalSeconds = `0${totalSeconds}`;
   }
-  
-  songTotalTime.textContent = `${totalMinutes}:${totalSeconds}`
 
-  const songCurrentPlayTime = song.currentTime
-  const currentMinutes = (song.currentTime / 60)
-  let currentSeconds = (song.currentTime % 60) 
-  if(currentSeconds < 10) {
-    currentSeconds = `0${currentSeconds}`
+  songTotalTime.textContent = `${totalMinutes}:${totalSeconds}`;
+
+  const songCurrentPlayTime = song.currentTime;
+  const currentMinutes = song.currentTime / 60;
+  let currentSeconds = song.currentTime % 60;
+  if (currentSeconds < 10) {
+    currentSeconds = `0${currentSeconds}`;
   }
-  
-  songCurrentTime.textContent = `${currentMinutes}:${currentSeconds}`
+
+  songCurrentTime.textContent = `${currentMinutes}:${currentSeconds}`;
 }
 
 // fetch song from playlist
@@ -123,13 +120,19 @@ function onkeydown(e) {
     previousSong();
   } else if (e.code === "KeyS") {
     stopSong();
-  } else if (!e.code === 'Space' || e.code === 'KeyN' || e.code === 'Period' || e.code === 'KeyP' || e.code === 'Comma' || e.code === KeyS) {
-    e.cancelBubble = true
-    e = null
-  }
-  else {
+  } else if (
+    !e.code === "Space" ||
+    e.code === "KeyN" ||
+    e.code === "Period" ||
+    e.code === "KeyP" ||
+    e.code === "Comma" ||
+    e.code === KeyS
+  ) {
+    e.cancelBubble = true;
+    e = null;
+  } else {
     // fix the issue with other keys pausing the song
-    pause(); 
+    pause();
   }
 }
 
@@ -146,11 +149,14 @@ playPauseIcon.addEventListener("click", function () {
 nextIcon.addEventListener("click", nextSong);
 previousIcon.addEventListener("click", previousSong);
 
-// progress bar event 
+// progress bar event
 song.addEventListener("timeupdate", updateSongProgress);
 
+// time update event
+song.addEventListener("loadeddata", timeUpdateReading);
+
 progressWrapper.addEventListener("click", function (e) {
-  const progressWidth = progressWrapper.clientWidth
+  const progressWidth = progressWrapper.clientWidth;
   const clickedX = e.offsetX;
   const songDuration = song.duration;
 
