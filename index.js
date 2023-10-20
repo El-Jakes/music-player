@@ -18,19 +18,31 @@ const progressWrapper = document.getElementById("progress-wrapper");
 
 let songIndex = 0;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> ae704c93056ec24249aa66f8dc6ec29df3ee5eb4
 // song progress
 function updateSongProgress(e) {
-  const currentTime = e.target.currentTime;
-  const duration = e.target.duration;
-  const progressBar = (currentTime / duration) * 100;
-  progress.style.width = `${progressBar}%`;
+    const currentTime = e.target.currentTime;
+    const duration = e.target.duration;
+    const progressBar = (currentTime / duration) * 100;
+    progress.style.width = `${progressBar}%`;
 }
 
+song.addEventListener('loadeddata', timeUpdateReading)
 // time update function
+<<<<<<< HEAD
 function timeUpdateReading() {
   // fix this
   // currentTime / duration * 100: apply it to update progress time reading
   // fix the bug here
+=======
+function timeUpdateReading(){
+  // fix this
+  // fix the bug here
+  // currentTime / duration * 100: apply it to update progress time reading
+>>>>>>> ae704c93056ec24249aa66f8dc6ec29df3ee5eb4
   const songCurrentTime = document.getElementById("current");
   const songTotalTime = document.getElementById("end");
 
@@ -111,15 +123,18 @@ function stopSong() {
 // keyboard functionality
 function onkeydown(e) {
   e.preventDefault();
-  console.log(e);
+//   console.log(e);
   if (controlIcon.classList.contains("fa-play") && e.code === "Space") {
     play();
+  } else if (e.code === "Space") {
+    pause();
   } else if (e.code === "KeyN" || e.code === "Period") {
     nextSong();
   } else if (e.code === "KeyP" || e.code === "Comma") {
     previousSong();
   } else if (e.code === "KeyS") {
     stopSong();
+<<<<<<< HEAD
   } else if (
     !e.code === "Space" ||
     e.code === "KeyN" ||
@@ -134,6 +149,9 @@ function onkeydown(e) {
     // fix the issue with other keys pausing the song
     pause();
   }
+=======
+  }    
+>>>>>>> ae704c93056ec24249aa66f8dc6ec29df3ee5eb4
 }
 
 // play & pause event
